@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Majestic Admin Pro</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="{% static ' assets/vendors/mdi/css/materialdesignicons.min.css'%}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css'%}'%}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css'%}">
     <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css'%}">
     <link rel="stylesheet" href="{% static 'assets/vendors/font-awesome/css/font-awesome.min.css'%}" />
     <!-- End plugin css for this page -->
@@ -63,7 +62,7 @@
                                 <i class="mdi mdi-cog text-primary"></i>
                                 Settings
                             </a>
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" href="logout">
                                 <i class="mdi mdi-logout text-primary"></i>
                                 Logout
                             </a>
@@ -115,20 +114,22 @@
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Basic form elements</h4>
-                                    <p class="card-description">
-                                        Basic form elements
-                                    </p>
-                                    <form class="forms-sample">
+                                    <h4 class="card-title">Employee form</h4>
+                                    <form class="forms-sample" method="post">
                                         <div class="form-group">
                                             <label for="exampleInputName1">Name</label>
                                             <input type="text" class="form-control" id="exampleInputName1"
-                                                placeholder="Name">
+                                                placeholder="Name" name="Name">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail3">Email address</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail3"
-                                                placeholder="Email">
+                                            <label for="exampleInputName1">Prenom</label>
+                                            <input type="text" class="form-control" id="exampleInputName1"
+                                                placeholder="Name" name="Prenom">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail3">Username</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail3"
+                                                placeholder="Username" name="Username">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword4">Password</label>
@@ -136,18 +137,19 @@
                                                 placeholder="Password">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleSelectGender">Gender</label>
-                                            <select class="form-select" id="exampleSelectGender">
-                                                <option>Male</option>
-                                                <option>Female</option>
+                                            <label for="exampleSelectGender">User type</label>
+                                            <select class="form-select" id="exampleSelectGender" name="userType">
+                                                <option>Admin</option>
+                                                <option>Employee</option>
+                                                <option>Responsable des ressources humaines</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>File upload</label>
+                                            <label>Image upload</label>
                                             <input type="file" name="img[]" class="file-upload-default">
                                             <div class="input-group col-xs-12">
                                                 <input type="text" class="form-control file-upload-info" disabled
-                                                    placeholder="Upload Image">
+                                                    placeholder="Upload Image" name="image">
                                                 <span class="input-group-append">
                                                     <button class="file-upload-browse btn btn-primary"
                                                         type="button">Upload</button>
@@ -155,16 +157,32 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputCity1">City</label>
+                                            <label for="exampleInputCity1">Address</label>
                                             <input type="text" class="form-control" id="exampleInputCity1"
-                                                placeholder="Location">
+                                                placeholder="Address" name="Address">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleTextarea1">Textarea</label>
-                                            <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                                            <label for="exampleInputCity1">Time In</label>
+                                            <input type="time" class="form-control" id="exampleInputCity1"
+                                                placeholder="TimeIn" name="TimeIn">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputCity1">Time Out</label>
+                                            <input type="time" class="form-control" id="exampleInputCity1"
+                                                placeholder="TimeOut" name="TimeOut">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputCity1">Salare</label>
+                                            <input type="number" class="form-control" id="exampleInputCity1"
+                                                placeholder="Salare" name="Salare">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputCity1">Phone Number</label>
+                                            <input type="number" class="form-control" id="exampleInputCity1"
+                                                placeholder="Phone Number" name="PhoneNumber">
                                         </div>
                                         <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                        <button class="btn btn-light">Cancel</button>
+                                        <button type="reset" class="btn btn-light">Cancel</button>
                                     </form>
                                 </div>
                             </div>

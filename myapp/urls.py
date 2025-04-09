@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     #  LogIn
     path("", views.login, name="login"),
-    path('logout/', views.logout_view, name='logout'),
+    path('logout', views.logout, name='logout'),
     # AdminSection
     path("homeAdmin", views.homeAdmin, name="homeAdmin"),
     
