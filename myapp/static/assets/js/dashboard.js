@@ -549,124 +549,76 @@
 
     }
 
-    if ($("#cash-deposits-chart").length) {
-      const ctx = document.getElementById('cash-deposits-chart');
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
-          datasets: [
-            {
-              label: 'Absence',
-              data: [27, 35, 30, 43, 52, 48, 54, 46, 70],
-              borderColor: [
-                '#ff4747'
-              ],
-              borderWidth: 2,
-              fill: false,
-              pointBackgroundColor: "#fff"
-            },
-            {
-              label: 'Presente',
-              data: [29, 40, 37, 48, 64, 58, 70, 57, 80],
-              borderColor: [
-                '#4d83ff'
-              ],
-              borderWidth: 2,
-              fill: false,
-              pointBackgroundColor: "#fff"
-            },
-            {
-              label: 'Retard',
-              data: [90, 62, 80, 63, 72, 62, 40, 50, 38],
-              borderColor: [
-                '#ffc100'
-              ],
-              borderWidth: 2,
-              fill: false,
-              pointBackgroundColor: "#fff"
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          elements: {
-            line: {
-                tension: .1,
-            },
-            point: {
-              radius: 0
-            }
-          },
-          scales: {
-            x: {
-              display:true,
-              border: {
-                display: false
-              },
-              grid: {
-                display: true,
-                drawTicks: true,
-                color:"#e9e9e9",
-              },
-              ticks: {
-                display:true,
-                color:"#6c7383",
-                font: {
-                  size: 16,
-                  weight: 300,
+    async function fetchDataWeek() {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/myapp/getDataInOneWeek');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    
+        const text = await response.text();
+        const data = JSON.parse(text);
+    
+        // Extract sorted labels and values
+        const labels = Object.keys(data).sort(); // ['2025-04-09', ..., '2025-04-15']
+        const presentData = [];
+        const lateData = [];
+        const absentData = [];
+    
+        labels.forEach(date => {
+          const entry = data[date];
+          presentData.push(entry.present);
+          lateData.push(entry.late);
+          absentData.push(entry.absent);
+        });
+    
+        if ($("#cash-deposits-chart").length) {
+          const ctx = document.getElementById('cash-deposits-chart');
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: 'Absence',
+                  data: absentData,
+                  borderColor: ['#ff4747'],
+                  borderWidth: 2,
+                  fill: false,
+                  pointBackgroundColor: "#fff"
+                },
+                {
+                  label: 'Presente',
+                  data: presentData,
+                  borderColor: ['#4d83ff'],
+                  borderWidth: 2,
+                  fill: false,
+                  pointBackgroundColor: "#fff"
+                },
+                {
+                  label: 'Retard',
+                  data: lateData,
+                  borderColor: ['#ffc100'],
+                  borderWidth: 2,
+                  fill: false,
+                  pointBackgroundColor: "#fff"
                 }
-              },
+              ]
             },
-            y: {
-              display:true,
-              border: {
-                display: false
-              },
-              grid: {
-                display:true,
-                color:"#e9e9e9",
-              },
-              ticks: {
-                display:true,
-                color:"#6c7383",
-                font: {
-                  size: 16,
-                  weight: 300,
-                }
-              },
-            }
-          },
-          plugins: {
-            legend: {
-                display: false,
-                labels: {
-                    color: 'rgb(255, 99, 132)'
-                }
-            }
-          }
-        },
-        plugins: [{
-          afterDatasetUpdate: function (chart, args, options) {
-              const chartId = chart.canvas.id;
-              var i;
-              const legendId = `${chartId}-legend`;
-              const ul = document.createElement('ul');
-              for(i=0;i<chart.data.datasets.length; i++) {
-                  ul.innerHTML += `
-                  <li>
-                    <span style="background-color: ${chart.data.datasets[i].borderColor}"></span>
-                    ${chart.data.datasets[i].label}
-                  </li>
-                `;
-              }
-              return document.getElementById(legendId).appendChild(ul);
-            }
-        }]
-      });
-
+            options: {
+              // (keep your current chart options here)
+            },
+            plugins: [
+              // (keep your plugin if needed)
+            ]
+          });
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
     }
+
+    fetchDataWeek()
 
     if ($("#total-sales-chart").length) {
       const ctx = document.getElementById('total-sales-chart');

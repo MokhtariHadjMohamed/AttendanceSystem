@@ -8,6 +8,8 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     # AdminSection
     path("homeAdmin", views.homeAdmin, name="homeAdmin"),
+    path("getDataInOneDay", views.getDataInOneDay, name="getDataInOneDay"),
+    path("getDataInOneWeek", views.getDataInOneWeek, name="getDataInOneWeek"),
     
     path("showAllEmployees", views.showAllEmployees, name="showAllEmployees"),
     path("addNewEmployee", views.addNewEmployee, name="addNewEmployee"),
@@ -18,4 +20,5 @@ urlpatterns = [
     path("scanFace", views.scanFace, name="scanFace"),
     path("scanFigerPrint", views.scanFigerPrint, name="scanFigerPrint"),
     path("scanQrCode", views.scanQrCode, name="scanQrCode")
+
 ]

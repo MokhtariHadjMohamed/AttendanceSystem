@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import calendar
 
 # Create your models here.
 class Service(models.Model):
@@ -31,6 +33,31 @@ class User(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def calculate_salary(self, month=None, year=None):
+        """
+        Calculate salary for a specific month/year based on attendance.
+        Defaults to the current month/year.
+        """
+        # Determine month/year
+        now = timezone.now()
+        month = month if month else now.month
+        year = year if year else now.year
+
+        # Get total days in the month
+        _, total_days = calendar.monthrange(year, month)
+
+        # Count days the user had appointments (days present)
+        days_present = Appointmetn.objects.filter(
+            user=self,
+            data_appointment__month=month,
+            data_appointment__year=year
+        ).count()
+
+        # Calculate salary proportion (e.g., salary = base_salary * (days_present / total_days))
+        if total_days == 0:
+            return 0  # Avoid division by zero
+        return (self.salare / total_days) * days_present
 
 class Appointmetn(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
